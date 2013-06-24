@@ -8,7 +8,8 @@ require.config({
 		'backbone':'../libs/backbone-min',
 		'underscore':'../libs/underscore-min',
 		'handlebars':'../libs/handlebars',
-        'md5':'../libs/md5-min'
+        'md5':'../libs/md5-min',
+        'highcharts':'../libs/highcharts'
 	},
 	shim:{
 		'backbone':['jquery','underscore']
