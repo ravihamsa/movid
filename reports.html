@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movid</title>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="page-header">
+                <div class="row">
+                    <div class="span5">
+                        <h1 class="logo">Movid
+                            <small>where movies live</small>
+                        </h1>
+                    </div>
+                    <div class="span7">
+                        <ul class="pull-right inline-ul margin-t">
+                            <li>
+                                welcome <strong>Theater agent</strong>
+                            </li>
+                            <li>|</li>
+                            <li>
+                                <a href="register">Log out</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="navbar">
+                    <div class="navbar-inner">
+
+                        <ul class="nav">
+                            <li class="active"><a href="myReports.html">My Reports</a></li>
+                            <li><a href="invoiceReports.html">Invoice Reports</a></li>
+                            <li><a href="customReports.html">Custom Reports</a></li>
+                            <li><a href="trendingReports.html">Trending Reports</a></li>
+                            <li><a href="support.html">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <div class="spacer">
+                        <ul class="inline-ul">
+                            <li><h4 class="inline">Collection</h4></li>
+                            <li><input type="text" class="input-medium margin-n" value="Today"/> </li>
+                            <li>
+                                <label class="inline-blk">Ticket sale</label>
+                                <select class="input-medium margin-n">
+                                    <option value="all">All</option>
+                                    <option value="1">Opt 2</option>
+                                    <option value="2">Opt 1</option>
+                                    <option value="3">Opt 3</option>
+                                </select>
+
+                            </li>
+                            <li>
+                                <label class="inline-blk">Show</label>
+                                <select class="input-medium margin-n">
+                                    <option value="all">All</option>
+                                    <option value="1">Opt 2</option>
+                                    <option value="2">Opt 1</option>
+                                    <option value="3">Opt 3</option>
+                                </select>
+
+                            </li>
+                            <li>
+                                <label class="inline-blk">Category</label>
+                                <select class="input-small margin-n">
+                                    <option value="all">All</option>
+                                    <option value="1">Opt 2</option>
+                                    <option value="2">Opt 1</option>
+                                    <option value="3">Opt 3</option>
+                                </select>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row"><!-- counter issued blk -->
+                <div class="span12">
+                <div class="spacer">
+                    <h4>Counter Issued</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="highlight-bg">
+                                <th class="v-align-m" rowspan="2">Show Type</th>
+                                <th class="v-align-m" rowspan="2">Category</th>
+                                <th colspan="4">Seats</th>
+                                <th colspan="4">Show Collection</th>
+                            </tr>
+                            <tr class="highlight-bg">
+                                <td>Available</td>
+                                <td>Damaged</td>
+                                <td>Vacant</td>
+                                <td>Occupied</td>
+                                <td>Cash</td>
+                                <td>Card</td>
+                                <td>Service Charges</td>
+                                <td>Total</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="v-align-m" rowspan="3">Morning Show</td>
+                                <td>Balcony</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                            <tr>
+                                <td>II Class</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                            <tr>
+                                <td>III Class</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="highlight-bg">
+                                <th colspan="2">Total</th>
+                                <td>920</td>
+                                <td>25</td>
+                                <td>0</td>
+                                <td>895.00</td>
+                                <td>6885.00</td>
+                                <td>29000.00</td>
+                                <td>3240.00</td>
+                                <th class="highlight-bg">101090.00</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </div>
+                </div>
+            </div><!-- /counter issued blk -->
+            <div class="row"><!-- Advanced Booking blk -->
+                <div class="span12">
+                    <div class="spacer">
+                        <h4>Advanced Booking</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="highlight-bg">
+                                <th class="v-align-m" rowspan="2">Show Type</th>
+                                <th class="v-align-m" rowspan="2">Category</th>
+                                <th colspan="4">Seats</th>
+                                <th colspan="4">Show Collection</th>
+                            </tr>
+                            <tr class="highlight-bg">
+                                <td>My Theater</td>
+                                <td>Other Theater</td>
+                                <td>Total</td>
+                                <td>Cash</td>
+                                <td>Card</td>
+                                <td>Service Charges</td>
+                                <td>Total</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="v-align-m" rowspan="3">Morning Show</td>
+                                <td>Balcony</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                            <tr>
+                                <td>II Class</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                            <tr>
+                                <td>III Class</td>
+                                <td>250</td>
+                                <td>7</td>
+                                <td>243</td>
+                                <td>30000.00</td>
+                                <td>12000.00</td>
+                                <td>1740.00</td>
+                                <th class="highlight-bg">43740.00</th>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr class="highlight-bg">
+                                <th colspan="2">Total</th>
+                                <td>920</td>
+                                <td>25</td>
+                                <td>895.00</td>
+                                <td>6885.00</td>
+                                <td>29000.00</td>
+                                <td>3240.00</td>
+                                <th class="highlight-bg">101090.00</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /Advanced Booking blk -->
+            <div class="row">
+                <div class="span12">
+                    <div class="spacer">
+                        <button type="button" class="btn pull-right btn-primary">Generate Reports</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="footer">
+    <p>Copyright 2013 &copy; Movied. All Rights Reserved</p>
+</div>
+
+</body>
+</html>
