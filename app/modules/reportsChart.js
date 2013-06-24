@@ -11,14 +11,16 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
         template:app.getTemplateFromString('<div class="chart-container"> </div>'),
         afterDataRender:function(){
             var data = this.data;
-            var pageAttr = app.getPageAttributes();
-            var dimension = '_id';
+            var attr = this.model.toJSON();
+            var categoryId = '_id';
+            var yAxis =attr.yAxis;
+
 
             var categories = ['collection', 'ticketsSold'];
 
             var xAxis = {
                 categories: _.map(data, function (item) {
-                    return item[dimension];
+                    return item[categoryId];
                 }),
                 gridLineColor: '#ccc',
                 gridLineDashStyle: 'shortdot',
@@ -30,7 +32,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
 
             var clonedData = _.clone(data);
             var sortedData = _.sortBy(clonedData, function (item) {
-                return -item[dimension];
+                return -item[categoryId];
             });
             //data = sortedData.splice(0, 10);
 
@@ -38,7 +40,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
 
 
             var formattedData =  _.map(sortedData, function(item){
-                return item['collection'];
+                return item[yAxis];
             })
 
             var series = [
@@ -62,7 +64,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                     type: chartType
                 },
                 title: {
-                    text: ''
+                    text: yAxis
                 },
                 xAxis: xAxis,
                 yAxis: {

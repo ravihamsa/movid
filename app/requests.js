@@ -14,13 +14,15 @@ define(["app"], function(app) {
     //session only as of now
     var cacheType = "session";
 
+
     //que/override/abort
     var queBehavior = "que";
 
     app.request.define("getGroupedData", "ajax", {
         url : "/transactions/grouped",
         type : "get",
-        contentType : "json"
+        contentType : "json",
+        queBehavior:queBehavior
     });
 
     app.request.define("getDashboardReport", "ajax", {

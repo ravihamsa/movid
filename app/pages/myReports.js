@@ -25,7 +25,8 @@ define(['pages/basepage', 'util', 'modules/common/dimensionList', 'modules/repor
 
             var chart1Model = new ReportsChart.Model({
                 requestId: 'getGroupedData',
-                params: app.getPageParamString()
+                params: app.getPageParamString(),
+                yAxis:'collection'
             });
 
             var chart1 = new ReportsChart.View({
@@ -37,7 +38,8 @@ define(['pages/basepage', 'util', 'modules/common/dimensionList', 'modules/repor
 
             var chart2Model = new ReportsChart.Model({
                 requestId: 'getGroupedData',
-                params: app.getPageParamString()
+                params: app.getPageParamString(),
+                yAxis:'ticketsSold'
             });
 
             var chart2 = new ReportsChart.View({
