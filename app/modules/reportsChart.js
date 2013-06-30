@@ -7,8 +7,11 @@
  */
 define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
 
+    var colorList  =['#FF5300',	'#BF5E30',	'#A63600',	'#FF7E40',	'#FFA073']
+
+
     var View = BaseData.View.extend({
-        template:app.getTemplateFromString('<div class="chart-container"> </div>'),
+        template:app.getTemplateFromString('<div class="chart-container" style="height:200px;"> </div>'),
         afterDataRender:function(){
             var data = this.data;
             var attr = this.model.toJSON();
@@ -43,10 +46,14 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                 return item[yAxis];
             })
 
+            var color= colorList[Math.floor(Math.random()*colorList.length)]
+
             var series = [
                 {
+                    name:yAxis,
                     data: formattedData,
                     showInLegend: false,
+                    color:color,
                     marker: {
                         fillColor: '#ffffff',
                         lineColor: '#1568b6',
@@ -90,7 +97,10 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                     y: 100,
                     borderWidth: 0
                 },
-                series: series
+                series: series,
+                credits: {
+                    enabled: false
+                }
             });
 
         }

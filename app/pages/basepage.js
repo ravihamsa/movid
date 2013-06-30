@@ -13,6 +13,7 @@ define(['app',  'modules/base', 'modules/common/pageHeader','modules/common/navB
 
         renderHeader:function(){
             var headerEl = $('.page-header');
+            headerEl.empty();
 
             var header = new PageHeader.View();
             header.render().$el.appendTo(headerEl);

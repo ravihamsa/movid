@@ -12,8 +12,12 @@ define(['app'],function(){
     var Util = {};
 
     Util.paramsToObject = function(params){
-        var paramsArray = _.map(params.split(';'),function(str){return str.split('=')});
         var obj = {};
+        if(!params){
+            return obj;
+        }
+        var paramsArray = _.map(params.split(';'),function(str){return str.split('=')});
+
         _.each(paramsArray,function(arr){
             obj[arr[0]]=arr[1];
         })
