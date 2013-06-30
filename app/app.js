@@ -27,7 +27,20 @@ define(['util','backbone', 'md5'], function (Util) {
 
     var dataUrlPrefix = 'http://ravihamsa.inmobi.com/api'; //without last slash
 
-    var stringIndex = {};
+    var stringIndex = {
+        collection:'Collection',
+        ticketsSold:'Tickets Sold',
+        state:'State',
+        theatre_category:'Theatre Category',
+        region:'Region',
+        city:'City',
+        district:'District',
+        language:'Language',
+        movie_name:'Movie Name',
+        movieName:'Movie Name',
+        theatre:'Theatre',
+        screen:'Screen'
+    };
 
     var JST ={};
 

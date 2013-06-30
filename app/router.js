@@ -12,7 +12,7 @@ define([ 'util', 'app','backbone'], function (Util, app) {
 
         },
         index: function () {
-            app.router.navigate('page/dashboard/', {trigger: true});
+            app.router.navigate('page/myReports/', {trigger: true});
         },
         loadPage: function (pageId, params) {
 
