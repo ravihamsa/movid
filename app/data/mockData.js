@@ -5,3 +5,7 @@
  * Time: 8:31 PM
  * To change this template use File | Settings | File Templates.
  */
+define(['app', 'data/data'],function(app, data){
+
+
+});

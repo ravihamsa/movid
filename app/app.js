@@ -1,5 +1,5 @@
 //app.js
-define(['util','backbone', 'md5'], function (Util) {
+define(['util', 'data/data', 'backbone', 'md5'], function (Util, Data) {
 
     "use strict";
 
