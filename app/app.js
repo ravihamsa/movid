@@ -28,6 +28,9 @@ define(['util', 'data/data', 'backbone', 'md5'], function (Util, Data) {
     var dataUrlPrefix = 'http://ravihamsa.inmobi.com/api'; //without last slash
 
     var stringIndex = {
+        expected:'Expected',
+        actual:'Actual',
+        difference:'Difference',
         collection:'Collection',
         ticketsSold:'Tickets Sold',
         state:'State',

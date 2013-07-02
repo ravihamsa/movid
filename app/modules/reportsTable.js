@@ -19,46 +19,92 @@ define(['app', 'modules/base', 'modules/baseData', 'highcharts'],function(app,Ba
 
     var View = BaseData.View.extend({
         template:app.getTemplateFromString('<div class="table-container"> </div>'),
-        afterDataRender:function(){
-            var data = this.data;
+        loadData:function(){
+            var _this = this;
+            return $.when(this.loadCollectionData(), this.loadTickedSoldData()).done(function(collData, ticketData){
+                _this.data = Array.prototype.slice.call(arguments,0);
+            })
+        },
+
+        loadCollectionData:function(){
+            var def = $.Deferred();
+            var _this = this;
+
+            var done = function(resp){
+                def.resolve(resp);
+            };
+
+            var failure = function(errors){
+                def.reject(errors);
+            }
+
+
             var attr = this.model.toJSON();
-            var pageAttributes = app.getPageAttributes();
-            var dimension = pageAttributes.dimension;
+
+            this.model.addRequest({
+                id:attr.requestId,
+                params:this.getParams(),
+                success:done,
+                failure:failure
+            });
+
+            return def;
+
+        },
+        loadTickedSoldData:function(){
+            var def = $.Deferred();
+            var _this = this;
+
+            var done = function(resp){
+                def.resolve(resp);
+            };
+
+            var failure = function(errors){
+                def.reject(errors);
+            }
+
+
+            var attr = this.model.toJSON();
+
+            this.model.addRequest({
+                id:attr.requestId,
+                params:this.getParams(),
+                success:done,
+                failure:failure
+            });
+
+            return def;
+
+        },
+
+
+        afterDataRender:function(){
+
+
+            var data = this.data;
+            var collectionData = data[0];
+            var ticketData =  data[1];
+            var attr = this.model.toJSON();
+            var pageAttributess = app.getPageAttributes();
             var categoryId = '_id';
             var yAxis =attr.yAxis;
 
-            var yLabel = app.getString(yAxis);
-
-
-            var categories = ['collection', 'ticketsSold'];
-
-            var xAxis = {
-                categories: _.map(data, function (item) {
+            var categories = _.map(collectionData, function (item) {
                     return item[categoryId];
-                }),
-                gridLineColor: '#ccc',
-                gridLineDashStyle: 'shortdot',
-                gridLineWidth: 1
-            };
+                })
 
 
-
-
-            var clonedData = _.clone(data);
-            var sortedData = _.sortBy(clonedData, function (item) {
+            var clonedCollectionData = _.clone(collectionData);
+            var sortedCollectionData = _.sortBy(clonedCollectionData, function (item) {
                 return -item[categoryId];
             });
-            //data = sortedData.splice(0, 10);
 
-            var chartType = 'column';
-
-
-            var formattedData =  _.map(sortedData, function(item){
+            var formattedCollectionData =  _.map(sortedCollectionData, function(item){
                 return item[yAxis];
             })
 
-            var expectedData =  _.map(sortedData, function(item, index){
-                var formattedValue = formattedData[index];
+            var expectedCollectionData =  _.map(sortedCollectionData, function(item, index){
+                var formattedValue = formattedCollectionData[index];
 
                 var base = Math.pow(10,(''+formattedValue).length-1);
                 var val= Math.ceil(formattedValue/base)*base;
@@ -66,15 +112,44 @@ define(['app', 'modules/base', 'modules/baseData', 'highcharts'],function(app,Ba
             })
 
 
-            var differenceData = _.map(formattedData, function(value, index){
-                return expectedData[index]-value;
+            var differenceCollectionData = _.map(formattedCollectionData, function(value, index){
+                return expectedCollectionData[index]-value;
+            })
+
+            var clonedTicketData = _.clone(ticketData);
+            var sortedTicketData = _.sortBy(clonedTicketData, function (item) {
+                return -item[categoryId];
+            });
+
+            var formattedTicketData =  _.map(sortedTicketData, function(item){
+                return item[yAxis];
+            })
+
+            var expectedTicketData =  _.map(sortedTicketData, function(item, index){
+                var formattedValue = formattedTicketData[index];
+
+                var base = Math.pow(10,(''+formattedValue).length-1);
+                var val= Math.ceil(formattedValue/base)*base;
+                return val;
             })
 
 
-            var rows = _.map(formattedData,function(value, index){
-                var expected = expectedData[index];
-                var diff = differenceData[index];
-                return _.object(['dimension', 'actual', 'expected','difference'], [xAxis.categories[index],value, expected, diff])
+            var differenceTicketData = _.map(formattedTicketData, function(value, index){
+                return expectedTicketData[index]-value;
+            })
+
+
+
+            var rows = _.map(formattedCollectionData,function(value, index){
+                var actualCollection = value;
+                var expectedCollection = expectedCollectionData[index];
+                var diffCollection = differenceCollectionData[index];
+
+                var actualTicket = formattedTicketData[index];
+                var expectedTicket = expectedTicketData[index];
+                var diffTicket = differenceTicketData[index];
+
+                return _.object(['dimension', 'actualCollection', 'expectedCollection','differenceCollection', 'actualTicket', 'expectedTicket','differenceTicket'], [categories[index],actualCollection, expectedCollection, diffCollection, actualTicket, expectedTicket, diffTicket])
             })
 
 
@@ -85,8 +160,10 @@ define(['app', 'modules/base', 'modules/baseData', 'highcharts'],function(app,Ba
             var table = new TableView({
                 model: new Base.Model({
                     rows:rows,
-                    dimension:app.getString(dimension),
-                    yLabel:yLabel
+                    dimension:app.getString(pageAttributess.dimension),
+                    yLabel:app.getString(yAxis),
+                    yLabel2:'Tickets Sold'
+
                 })
             })
 

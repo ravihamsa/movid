@@ -13,29 +13,59 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
         return colorList[Math.floor(Math.random()*colorList.length)];
     }
 
+    var getExpectedData = function(value){
+        var base = Math.pow(10,(''+value).length-1);
+        var val= Math.ceil(value/base)*base;
+        return val;
+    }
+
     var View = BaseData.View.extend({
         template:app.getTemplateFromString('<div class="chart-container" style="height:200px; border: 1px solid #efefef; margin-bottom: 20px;"> </div>'),
         afterDataRender:function(){
-            var data = this.data;
             var attr = this.model.toJSON();
-            var pageAttributess = app.getPageAttributes();
+            var pageAttributes = app.getPageAttributes();
             var categoryId = '_id';
             var yAxis =attr.yAxis;
+
+            var actualData = _.reduce(this.data,function(memo, item){
+                var collection = item.collection;
+                var ticketsSold = item.ticketsSold;
+                return {
+                    '_id':memo._id,
+                    collection:memo.collection+collection,
+                    ticketsSold:memo.ticketsSold+ticketsSold
+                }
+            }, {'_id':'actual', collection:0, ticketsSold:0});
+
+
+
+            var expectedData = _.clone(actualData);
+            expectedData._id = 'expected';
+            expectedData.collection = getExpectedData(actualData.collection);
+            expectedData.ticketsSold = getExpectedData(actualData.ticketsSold);
+
+
+            var differenceData = _.clone(expectedData);
+            differenceData._id =  'difference'
+            differenceData.collection = expectedData.collection - actualData.collection;
+            differenceData.ticketsSold = expectedData.ticketsSold - actualData.ticketsSold;
+
+            var data = [actualData, expectedData, differenceData];
+
 
             var yLabel = app.getString(yAxis);
 
 
-            var categories = ['collection', 'ticketsSold'];
+
 
             var xAxis = {
                 categories: _.map(data, function (item) {
-                    return item[categoryId];
+                    return app.getString(item[categoryId]);
                 }),
                 gridLineColor: '#ccc',
                 gridLineDashStyle: 'shortdot',
                 gridLineWidth: 1
             };
-
 
 
 
@@ -48,13 +78,26 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
             var chartType = 'column';
 
 
-            var formattedData =  _.map(sortedData, function(item){
+            var emptyObj = {
+                collection:0,
+                ticketsSold:0
+            }
+            var formattedData =  _.map([emptyObj,actualData,emptyObj], function(item){
                 return item[yAxis];
             })
 
+            var expectedData =  _.map([expectedData,emptyObj,emptyObj], function(item){
+                return item[yAxis];
+            })
+
+            var differenceData =  _.map([emptyObj,emptyObj,differenceData], function(item){
+                return item[yAxis];
+            })
+
+            /*
+
             var expectedData =  _.map(sortedData, function(item, index){
                 var formattedValue = formattedData[index];
-
                 var base = Math.pow(10,(''+formattedValue).length-1);
                 var val= Math.ceil(formattedValue/base)*base;
                 return val;
@@ -65,10 +108,15 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                 return expectedData[index]-value;
             })
 
+            */
+
+            console.log(expectedData, differenceData);
+
+
 
             var series = [
                 {
-                    name:'expected'+yAxis,
+                    name:yLabel,
                     data: expectedData,
                     showInLegend: false,
                     color:'#6296c7',
@@ -78,11 +126,11 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                         lineWidth: 1,
                         radius: 4
                     },
-                    stack:'expected'
+                    stack:'actual'
 
                 },
                 {
-                    name:yAxis,
+                    name:yLabel,
                     data: formattedData,
                     showInLegend: false,
                     color:'#00b866',
@@ -96,7 +144,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
 
                 },
                 {
-                    name:'diff'+yAxis,
+                    name:yLabel,
                     data: differenceData,
                     showInLegend: false,
                     color:'#ff2a1a',
@@ -106,7 +154,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                         lineWidth: 1,
                         radius: 4
                     },
-                    stack:'difference'
+                    stack:'actual'
 
                 }
             ];
@@ -117,7 +165,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
                     type: chartType
                 },
                 title: {
-                    text: ''+ yLabel +' by '+ app.getString(pageAttributess.dimension),
+                    text: ''+ yLabel,
                     align: 'left',
                     style:{
                         color:'#333'

@@ -72,6 +72,7 @@ define(['pages/basepage', 'util', 'modules/common/dimensionList', 'modules/repor
             table1.render().$el.appendTo(table1El)
 
 
+            /*
             var table2Model = new ReportsTable.Model({
                 requestId: 'getGroupedData',
                 params: app.getPageParamString(),
@@ -83,14 +84,14 @@ define(['pages/basepage', 'util', 'modules/common/dimensionList', 'modules/repor
             });
 
             table2.render().$el.appendTo(table2El)
-
+            */
 
 
             this.model.on('change:dimension', function (model, dimension) {
                 chart1Model.set('params', app.getPageParamString());
                 chart2Model.set('params', app.getPageParamString());
                 table1Model.set('params', app.getPageParamString());
-                table2Model.set('params', app.getPageParamString());
+                //table2Model.set('params', app.getPageParamString());
             });
         }
     });

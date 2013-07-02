@@ -61,7 +61,6 @@ define(['app', 'util','modules/base'],function(app,Util,Base){
 
             return def;
 
-
         },
         afterDataRender:function(){
             var data = this.data;
