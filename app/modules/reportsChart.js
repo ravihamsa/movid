@@ -110,7 +110,7 @@ define(['app', 'modules/baseData', 'highcharts'],function(app,BaseData){
 
             */
 
-            console.log(expectedData, differenceData);
+            //console.log(expectedData, differenceData);
 
 
 
