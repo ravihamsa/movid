@@ -12,10 +12,12 @@ define([ 'util', 'app','backbone'], function (Util, app) {
 
         },
         index: function () {
+            console.log('index router');
             app.router.navigate('page/myReports/', {trigger: true});
         },
         loadPage: function (pageId, params) {
-
+            console.log('load page router');
+            console.log('loading page '+pageId);
             if(app.curPageId === pageId){
                 app.curPageView.model.set(Util.paramsToObject(params));
                 return;
